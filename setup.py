@@ -12,7 +12,7 @@ with open( "README.md", "rb" ) as f:
 
 setup(
 	name="koch_trainer",
-	version="0.0.1",
+	version="0.0.2",
 	description="Koch method Morse code training program with Word Mode, Callsign Mode, and Random Character Mode",
 	author="Ryan Guisewite",
 	author_email="",
