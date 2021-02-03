@@ -48,7 +48,7 @@ class KochTrainer:
         self._word_count        = options.word_count
         self._word_char_min     = options.word_char_min
         self._word_char_max     = options.word_char_max
-        self._word_file         = "english-long.txt"
+        self._word_file         = options.word_file
         self._word_separators   = [ " " ]
 
         if self._word_char_min > self._word_char_max:
@@ -125,7 +125,8 @@ class KochTrainer:
                            "W", "I", ".", "N", "J", "E", "F", "0", "Y", ",",
                            "V", "G", "5", "/", "Q", "9", "Z", "H", "3", "8",
                            "B", "?", "4", "2", "7", "C", "1", "D", "6", "X",
-                           "BT", "SK", "AR" ]
+                           "BT", "SK", "AR", "AA", "AS", "VE", "IN", "HH",
+                           "KA", "CT", "KN", "NJ", "SN" ]
 
             if self._level != 0:
                 characters = characters[ :self._level ]
@@ -274,6 +275,7 @@ class KochTrainerAudioGen:
             "8": (self.dah, self.dah, self.dah, self.dit, self.dit),
             "9": (self.dah, self.dah, self.dah, self.dah, self.dit),
             "0": (self.dah, self.dah, self.dah, self.dah, self.dah),
+            "/": (self.dah, self.dit, self.dit, self.dah, self.dit),
             ".": (self.dit, self.dah, self.dit, self.dah, self.dit, self.dah),
             ",": (self.dah, self.dah, self.dit, self.dit, self.dah, self.dah),
             "?": (self.dit, self.dit, self.dah, self.dah, self.dit, self.dit),
@@ -437,6 +439,9 @@ def main():
 
     parser.add_argument( "--word-count", dest="word_count", type=int, default=20,
                          help="Generate exactly X words.")
+
+    parser.add_argument( "--word-file", type=str, default=None,
+                         help="Word file from which to pull random words. Default is 'english.txt', which is a list of the 3,000 most common english words. Also available are 'english-long.txt' and 'english-all.txt'. You can also pass an absolute path to a specific file. Each word must be on its own line" )
 
     parser.add_argument( "message", nargs="*", default=None )
 
