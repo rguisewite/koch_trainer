@@ -15,7 +15,7 @@ setup(
 	version="0.0.1",
 	description="Koch method Morse code training program with Word Mode, Callsign Mode, and Random Character Mode",
 	author="Ryan Guisewite",
-	author_email="",
+	author_email="ryan.guisewite@gmail.com",
 	url="https://github.com/rguisewite/koch_trainer",
 
 	packages=find_packages(),

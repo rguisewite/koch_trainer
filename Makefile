@@ -13,7 +13,7 @@ register: checkmetadata
 	python setup.py register
 
 upload: checkmetadata
-	python setup.py sdist upload --sign -r https://pypi.python.org/pypi
+	python setup.py sdist upload --sign
 
 checkmetadata:
 	python setup.py check -s --restructuredtext

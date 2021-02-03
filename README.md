@@ -25,10 +25,6 @@ install ``portaudio`` with Homebrew::
 Examples
 --------
 
-koch_trainer --level 12 --effective-speed 7 --character-speed 20 --word-mode --word-count 20 --word-char-min 2 --word-char-max 6
-koch_trainer --effective-speed 7 --character-speed 20 --callsign-mode --word-count 20
-koch_trainer --level 12 --effective-speed 7 --character-speed 20 --character-count 3 --hertz 400
-
 Play back strings in Morse by passing them as command line arguments::
 
     $ koch_trainer hello world
