@@ -144,7 +144,14 @@ class KochTrainer:
 
         words           = list( words ) # uniquify
 
-        finalized_words = [ rng().choice( words ).upper() for i in range( self._word_count ) ]
+        if len( words ) != 0:
+            finalized_words = [ rng().choice( words ).upper() for i in range( self._word_count ) ]
+        else:
+            print( '' )
+            print( 'No matching words found in the list of characters: {}'.format( self._characters ) )
+
+            finalized_words = []
+
         combined_words  = []
 
         for index, word in enumerate( finalized_words ):
