@@ -3,8 +3,8 @@
 
 from io import open
 
-import audiogen
-import audiogen.util
+import audiogen_p3
+import audiogen_p3.util
 import contextlib
 import itertools
 import random
@@ -316,12 +316,12 @@ class KochTrainerAudioGen:
 
     def save_file( self, file ):
         with open( file, "wb" ) as f:
-            audiogen.write_wav( f, self._audio )
+            audiogen_p3.write_wav( f, self._audio )
 
 
     def emit_audio( self ):
         try:
-            stream = audiogen.sampler.play( itertools.chain( self._audio, audiogen.beep() ), blocking=True )
+            stream = audiogen_p3.sampler.play( itertools.chain( self._audio, audiogen_p3.beep() ), blocking=True )
         except KeyboardInterrupt:
             # So further messages don't start with "^C"
             print( "" )
@@ -329,12 +329,12 @@ class KochTrainerAudioGen:
 
     def generate_audio( self, text ):
         letter_sounds       = [ self.generate_letter_sound( l ) for l in text ]
-        band_pass_filter    = audiogen.filters.band_pass( self._hertz, self._bandwidth )
+        band_pass_filter    = audiogen_p3.filters.band_pass( self._hertz, self._bandwidth )
 
         return band_pass_filter( band_pass_filter( band_pass_filter( itertools.chain( *letter_sounds ) ) ) )
 
 
-    @audiogen.sampler.cache_finite_samples
+    @audiogen_p3.sampler.cache_finite_samples
     def generate_letter_sound( self, letter ):
         if letter in self._cached_letter_sounds:
             return self._chached_letter_sound[ letter ]
@@ -349,7 +349,7 @@ class KochTrainerAudioGen:
 
 
     def generate_tone( self, seconds ):
-        tone = audiogen.crop( audiogen.util.volume( audiogen.tone( self._hertz ), -3 ), seconds )
+        tone = audiogen_p3.crop( audiogen_p3.util.volume( audiogen_p3.tone( self._hertz ), -3 ), seconds )
         return tone
 
 
@@ -364,17 +364,17 @@ class KochTrainerAudioGen:
 
 
     def space( self ):
-        for sample in audiogen.silence( self._inter_word ):
+        for sample in audiogen_p3.silence( self._inter_word ):
             yield sample
 
 
     def inter_symbol( self ):
-        for sample in audiogen.silence( self._inter_symbol ):
+        for sample in audiogen_p3.silence( self._inter_symbol ):
             yield sample
 
 
     def inter_letter( self ):
-        for sample in audiogen.silence( self._inter_letter ):
+        for sample in audiogen_p3.silence( self._inter_letter ):
             yield sample
 
 

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 import pathlib
 
 required_modules = [
-	'audiogen @ https://github.com/rguisewite/audiogen/tarball/master',
+	'audiogen_p3 @ https://github.com/rguisewite/audiogen_p3/tarball/master',
 	'PyAudio',
 ]
 
