@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 
 from io import open
@@ -19,10 +19,6 @@ try:
     rng = random.SystemRandom
 except AttributeError as ex:
     rng = random.Random
-
-# Python 3 compatibility
-if sys.version_info[0] >= 3:
-    xrange = range
 
 
 
@@ -59,11 +55,11 @@ class KochTrainer:
         if message:
             message                     = message.upper()
 
-            print( u"\n\nMessage Mode: Effective Speed: {effective_speed} | Character Speed {character_speed}".format( effective_speed=self._effective_speed, character_speed=self._character_speed ) )
+            print( "\n\nMessage Mode: Effective Speed: {effective_speed} | Character Speed {character_speed}".format( effective_speed=self._effective_speed, character_speed=self._character_speed ) )
         elif self._callsign_mode:
             message                     = self.build_callsigns()
 
-            print( u"\n\nCallsign Mode: Effective Speed: {effective_speed} | Character Speed {character_speed}".format( effective_speed=self._effective_speed, character_speed=self._character_speed ) )
+            print( "\n\nCallsign Mode: Effective Speed: {effective_speed} | Character Speed {character_speed}".format( effective_speed=self._effective_speed, character_speed=self._character_speed ) )
         else:
             #
             # Character Setup
@@ -74,7 +70,7 @@ class KochTrainer:
             if not self._word_mode:
                 message                 = self.build_characters()
 
-                print( u"\n\nRandom Character Mode: Effective Speed: {effective_speed} | Character Speed {character_speed} | Characters {characters}".format( effective_speed=self._effective_speed, character_speed=self._character_speed, characters=u"·".join( self._characters ) ) )
+                print( "\n\nRandom Character Mode: Effective Speed: {effective_speed} | Character Speed {character_speed} | Characters {characters}".format( effective_speed=self._effective_speed, character_speed=self._character_speed, characters="·".join( self._characters ) ) )
             else:
                 #
                 # Build Word Separators
@@ -91,30 +87,30 @@ class KochTrainer:
 
                 message                 = self.build_words()
 
-                print( u"\n\nWord Mode: Effective Speed: {effective_speed} | Character Speed {character_speed} | Characters {characters}".format( effective_speed=self._effective_speed, character_speed=self._character_speed, characters=u"·".join( self._characters ) ) )
+                print( "\n\nWord Mode: Effective Speed: {effective_speed} | Character Speed {character_speed} | Characters {characters}".format( effective_speed=self._effective_speed, character_speed=self._character_speed, characters="·".join( self._characters ) ) )
 
         audio_generator = KochTrainerAudioGen( message, effective_speed=self._effective_speed, character_speed=self._character_speed, hertz=self._hertz, bandwidth=self._bandwidth )
 
         if self._file:
             audio_generator.save_file( self._file )
         else:
-            print( u"Audio beginning in:" )
+            print( "Audio beginning in:" )
             sys.stdout.flush()
             time.sleep( 1 )
-            print( u"3..." ),
+            print( "3...", end=" " )
             sys.stdout.flush()
             time.sleep( 1 )
-            print( u"2..." ),
+            print( "2...", end=" " )
             sys.stdout.flush()
             time.sleep( 1 )
-            print( u"1..." )
+            print( "1..." )
             sys.stdout.flush()
             time.sleep( 1 )
 
             audio_generator.emit_audio()
 
         if not self._file:
-            print( u"\n{}".format( message.upper() ) )
+            print( "\n{}".format( message.upper() ) )
 
 
     def build_character_list( self ):
@@ -148,7 +144,7 @@ class KochTrainer:
 
         words           = list( words ) # uniquify
 
-        finalized_words = [ rng().choice( words ).upper() for i in xrange( self._word_count ) ]
+        finalized_words = [ rng().choice( words ).upper() for i in range( self._word_count ) ]
         combined_words  = []
 
         for index, word in enumerate( finalized_words ):
@@ -182,7 +178,7 @@ class KochTrainer:
 
         callsigns           = list( callsigns ) # uniquify
 
-        finalized_callsigns = [ rng().choice( callsigns ).upper() for i in xrange( self._callsign_count ) ]
+        finalized_callsigns = [ rng().choice( callsigns ).upper() for i in range( self._callsign_count ) ]
         combined_callsigns  = []
 
         for index, callsign in enumerate( finalized_callsigns ):
@@ -210,7 +206,7 @@ class KochTrainer:
 
     def build_characters( self ):
         letters = ( random.choice( self._characters ) for i in range( self._character_count ) )
-        return u"".join( self.build_characters_insertspaces( letters ) )
+        return "".join( self.build_characters_insertspaces( letters ) )
 
 
     def build_characters_insertspaces( self, letters ):
@@ -222,7 +218,7 @@ class KochTrainer:
                 word_length = random.randint( 1, 8 )
                 count       = 0
 
-                yield u" "
+                yield " "
 
             count += 1
 
@@ -321,7 +317,7 @@ class KochTrainerAudioGen:
             stream = audiogen.sampler.play( itertools.chain( self._audio, audiogen.beep() ), blocking=True )
         except KeyboardInterrupt:
             # So further messages don't start with "^C"
-            print( u"" )
+            print( "" )
 
 
     def generate_audio( self, text ):
